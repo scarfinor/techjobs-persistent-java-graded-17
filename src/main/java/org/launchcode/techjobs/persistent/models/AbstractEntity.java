@@ -24,11 +24,12 @@ public abstract class AbstractEntity {
         return id;
     }
 
-    public String getName() {
+    public @NotBlank(message = "Please enter job name")
+    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters") String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NotBlank(message = "Please enter job name") @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters") String name) {
         this.name = name;
     }
 
