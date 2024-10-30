@@ -9,7 +9,7 @@ public class Employer extends AbstractEntity {
 
     @NotBlank (message = "Please enter a location")
     @Size (max = 100, message = "location must be less then 100 characters")
-    private String location;
+    public String location;
 
     public Employer() {}
 

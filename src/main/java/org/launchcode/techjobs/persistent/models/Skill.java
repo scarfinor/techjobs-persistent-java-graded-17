@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 public class Skill extends AbstractEntity {
 
     @Size(max = 500, message = "Description is to long!")
-    private String description;
+    public String description;
 
     public Skill() {
     }
