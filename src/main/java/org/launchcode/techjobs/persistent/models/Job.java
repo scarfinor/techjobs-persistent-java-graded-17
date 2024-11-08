@@ -42,8 +42,8 @@ public class Job extends AbstractEntity {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
-    }
 
+    public List<Skill> setSkills(List<Skill> skills) {
+        return this.skills = skills;
+    }
 }
