@@ -1,6 +1,8 @@
 package org.launchcode.techjobs.persistent.controllers;
 
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
 import org.launchcode.techjobs.persistent.models.Skill;
@@ -12,10 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by LaunchCode
@@ -58,25 +56,20 @@ public class HomeController {
 
         if (errors.hasErrors()) {
 	    model.addAttribute("title", "Add Job");
-        model.addAttribute("employers", employerRepository.findAll());
-        model.addAttribute("skills", skillRepository.findAll());
         return "add";
         }
 
         Optional<Employer> employerOpt = employerRepository.findById(employerId);
-        if (employerOpt.isEmpty()) {
-            model.addAttribute("error", "Employer is required.");
-            model.addAttribute("title", "Add Job");
-            model.addAttribute("employers", employerRepository.findAll());
-            model.addAttribute("skills", skillRepository.findAll());
-            return "add";
+        if (employerOpt.isPresent()) {
+            Employer employer = employerOpt.get();
+            newJob.setEmployer(employer);
+            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+            //                   skillRepository.findAllById((Iterable<Integer>) any);
+            newJob.setSkills(skillObjs);
+            // job.setSkills((List<Skill>) any);
+            jobRepository.save(newJob);
         }
 
-        Employer employer = employerOpt.get();
-        newJob.setEmployer(employer);
-        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
-        newJob.setSkills(skillObjs);
-        jobRepository.save(newJob);
         return "redirect:/";
     }
 
