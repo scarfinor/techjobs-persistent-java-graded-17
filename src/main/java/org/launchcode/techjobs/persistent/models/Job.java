@@ -10,8 +10,7 @@ import java.util.List;
 @Entity
 public class Job extends AbstractEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "employer_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Employer employer;
 
     @ManyToMany
